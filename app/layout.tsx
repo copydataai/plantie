@@ -17,6 +17,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Plantie",
   description: "Eco-friendly plants delivered to your doorstep",
+  icons: [
+    {
+      rel: "icon",
+      url: "/favicon.ico",
+    }
+  ],
+  keywords: ["plantie", "plant", "eco-friendly", "plants", "houseplants", "air plants", "tropical plants", "succulents", "greenery", "plant care", "plant delivery"],
+  
 };
 
 export default function RootLayout({
