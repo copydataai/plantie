@@ -11,4 +11,6 @@ export const plants = pgTable("plants", {
   updatedAt: timestamp("updated_at").defaultNow(),
   isActive: boolean("is_active").notNull().default(true),
 });
+
+
   
