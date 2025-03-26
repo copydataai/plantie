@@ -1,10 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { getSession } from "@/lib/auth-client";
 
 export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const session = await getSession();
+      if (!session.data && !session.error) {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+      }
+    };
+    checkAuth();
+  }, []);
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
       <div className="container mx-auto px-8 flex h-16 items-center justify-between">
@@ -29,12 +44,26 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm">
-            Log in
-          </Button>
-          <Button size="sm">
-            Sign up
-          </Button>
+          {/* Check if user is logged in */}
+          {isLoggedIn ? (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/cart">My Cart</Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/account">My Account</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button size="sm" asChild>
+                <Link href="/signup">Sign up</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
